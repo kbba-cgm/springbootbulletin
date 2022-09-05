@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://thymeleaf.org"
+  xmlns:layout="http://www.wltraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/main_template}"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>View post</title>
+  </head>
+
+  <body>
+    <div layout:fragment="content">
+      <div class="mb-4">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a th:href="@{ /users }">Users</a></li>
+            <li class="breadcrumb-item active" aria-current="page">username / details</li>
+          </ol>
+        </nav>
+        <h4 class="page-header-title">User Detail</h4>
+      </div>
+      <div class="card user-card border-primary bg-light card-whole-post">
+        <div class="card-body text-center">
+            <div class="card-user-header">
+                <div class="card-user-photo">
+                    <img src="https://ui-avatars.com/api/?background=0D8ABC&color=fff&rounded=true" alt="user_photo">
+                </div>
+                <div class="card-username">Kyaw bo bo aung</div>
+                <p>Junior Developer</p>
+            </div>
+            <div class="card-user-body">
+                <div>
+                    Email: <span>kbba@gmail.com</span>
+                </div>
+                <div>
+                    Phone: <span>+999 99 9999 999</span>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

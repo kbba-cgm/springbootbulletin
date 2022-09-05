@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://thymeleaf.org"
+  xmlns:layout="http://www.wltraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/main_template}"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>View post</title>
+  </head>
+
+  <body>
+    <div layout:fragment="content">
+      <div class="mb-4">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a th:href="@{ /posts }">Posts</a></li>
+            <li class="breadcrumb-item active" aria-current="page">post name</li>
+          </ol>
+        </nav>
+        <h4 class="page-header-title">Post Detail</h4>
+      </div>
+      <div class="card border-primary bg-light card-whole-post">
+        <div class="card-body">
+            <div class="card-post-category">
+                <span>category</span>
+                <span>category</span>
+                <span>category</span>
+            </div>
+          <h5 class="mb-3">Post name</h5>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore consequatur incidunt modi qui facere, debitis fugit magni magnam, sint repudiandae ratione, dolores nulla! Molestiae rem sunt, dignissimos quidem placeat repellendus et. Repellat illo veritatis dolor necessitatibus nostrum dolore quo? Quis expedita est culpa provident, sequi nulla voluptate cum aliquam omnis, eligendi atque ex harum, velit animi vel in maiores doloribus ducimus numquam non! Sed nisi iusto magnam dignissimos perspiciatis ipsa rerum minima porro temporibus pariatur accusantium dolorum molestiae, adipisci cumque fugit repellendus. Rerum placeat earum expedita labore, magni itaque saepe. Quibusdam dicta nihil officiis ex sint nobis, unde harum iusto, suscipit reiciendis natus id consequatur. Eos earum quas culpa, delectus, praesentium, explicabo rem eius inventore iste illum error doloremque ut soluta labore ipsa nisi porro! Magni quis suscipit.
+          </p>
+          <div class="card-post-date">
+            5 days ago
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

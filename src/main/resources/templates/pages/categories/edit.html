@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.wltraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/main_template}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Category</title>
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <div class="mb-4">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a th:href="@{ /categories }">Categories</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Edit Form</li>
+                </ol>
+            </nav>
+            <h4 class="page-header-title">Category Management</h4>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="mb-3">Edit Category</h5>
+                <form action="#" method="post">
+                    <div class="form-group">
+                        <label for="name" class="form-label">Category name</label>
+                        <input class="form-control" type="text" id="name" name="name"  />
+                    </div>
+                    <div class="form-group">
+                        <input class="btn btn-primary" type="submit" name="submit" value="Update Category" />
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

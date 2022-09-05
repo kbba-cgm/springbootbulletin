@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.wltraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/main_template}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit User</title>
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <div class="mb-4">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a th:href="@{ /users }">Users</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Edit Form</li>
+                </ol>
+            </nav>
+            <h4 class="page-header-title">User Management</h4>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="mb-3">Edit User</h5>
+                <form action="#" method="post">
+                    <div class="form-group">
+                        <label for="name" class="form-label">Username</label>
+                        <input class="form-control" type="text" id="name" name="name"  />
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email</label>
+                        <input class="form-control" type="email" id="email" name="email"  />
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="form-label">Password</label>
+                        <input class="form-control" type="password" id="password" name="password"  />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">role</label>
+                        <div>
+                            <select class="form-select" >
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                              </select>
+                        </div>
+                    </div>
+                    <!-- <div class="form-group">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox">
+                            <label class="form-check-label">is published</label>
+                        </div>
+                    </div> -->
+                    <div class="form-group">
+                        <input class="btn btn-primary" type="submit" name="submit" value="Create User" />
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

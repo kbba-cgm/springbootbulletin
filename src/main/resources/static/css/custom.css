@@ -1,0 +1,94 @@
+footer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    padding: 1rem 0.6rem;
+}
+
+#sidebarToggle {
+    cursor: pointer;
+    padding: 0.6rem;
+    border-radius: 5px;
+}
+
+#sidebarToggle:hover {
+    background-color: rgb(210, 210, 210);
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group .form-label {
+    margin-bottom: 0.3rem;
+}
+
+.page-header-title {
+    color: purple;
+    margin-bottom: 0.1rem;
+}
+.breadcrumb {
+    margin: 0;
+}
+
+.breadcrumb-item {
+    font-size: 0.8rem;
+}
+
+.breadcrumb-item a{
+    text-decoration: none;
+    color: #888;
+
+}
+
+.breadcrumb-item.active {
+    color: navy;
+}
+
+.card-whole-post {
+    max-width: 700px;
+    margin: auto;
+}
+
+.card-post-category {
+    margin-bottom: 2rem;
+    font-size: 0.8rem;
+    color: firebrick;
+}
+
+.card-post-category span {
+    border: 1px solid firebrick;
+    padding: 0.3rem 0.3rem;
+    margin-right: 0.5rem;
+    border-radius: 3px;
+}
+
+.card-post-category span::before {
+    content: "#";
+    font-size: 0.8rem;
+    color: firebrick;
+}
+
+.card-post-date {
+    margin-top: 2.5rem;
+    color: gray;
+}
+
+/* user-card */
+.user-card {
+    max-width: 350px;
+}
+
+.card-user-photo {
+    margin-bottom: 2rem;
+}
+
+.card-user-header {
+    margin-bottom: 3rem;
+}
+
+.card-username {
+    font-size: 1.3rem;
+    font-weight: 500;
+} 

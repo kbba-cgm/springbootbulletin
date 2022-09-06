@@ -22,16 +22,17 @@
             </thead>
             <tbody>
                 <tr th:each="category: ${categories}">
-                    <td th:text="${category.id}"></td>
+                    <td th:text="${categoryStat.index + 1}"></td>
                     <td th:text="${category.name}"></td>
                     <td>
                         <a th:href="@{/categories/{id}/edit(id=${category.id})}" class="btn btn-outline-info">
                             <i class="far fa-edit"></i>
                         </a>
-                        
-                        <a th:href="@{/deleteEmployee(categoryId=*{id})}" class="btn btn-outline-danger ml-2">
-                            <i class="far fa-trash-alt"></i>
-                        </a>
+                        <form class="d-inline" th:action="@{/categories/{id}/delete(id=${category.id})}" method="post">
+                            <button class="btn btn-outline-danger ml-2">
+                                <i class="far fa-trash-alt"></i>
+                            </button>
+                        </form>
                     </td>
                 </tr>
             </tbody>

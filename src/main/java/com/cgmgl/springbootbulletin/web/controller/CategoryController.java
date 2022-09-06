@@ -61,13 +61,10 @@ public class CategoryController {
 		return "redirect:/categories";
 	}
 
-	@PostMapping("/categories/delete")
-	public String deleteCategory(@Valid @ModelAttribute("categoryDto") CategoryDto categoryDto, BindingResult br, Model m) {
-		if(br.hasErrors()){
-			return "pages/categories/edit";
-		}
-		m.addAttribute("success", "New category updated successfully.");
-		categoryService.updateCategory(categoryDto);
+	@PostMapping("/categories/{category-id}/delete")
+	public String deleteCategory(@PathVariable("category-id") Long id, Model m) {
+		categoryService.deleteCategoryById(id);
+		m.addAttribute("success", "Category deleted successfully.");
 
 		return "redirect:/categories";
 	}

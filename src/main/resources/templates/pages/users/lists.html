@@ -18,11 +18,28 @@
                     <th>No.</th>
                     <th>Name</th>
                     <th>Email</th>
-                    <th>Role</th>
+                    <th>Position</th>
                     <th>Action</th>
                 </tr>
             </thead>
-            <tbody></tbody>
+            <tbody>
+                <tr th:each="user: ${users}">
+                    <td th:text="${userStat.index + 1}"></td>
+                    <td th:text="${user.name}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td th:text="${user.position}"></td>
+                    <td>
+                        <a th:href="@{/users/{id}/edit(id=${user.id})}" class="btn btn-outline-info">
+                            <i class="far fa-edit"></i>
+                        </a>
+                        <form class="d-inline" th:action="@{/users/{id}/delete(id=${user.id})}" method="post">
+                            <button class="btn btn-outline-danger ml-2">
+                                <i class="far fa-trash-alt"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
         </table>
     </div>
 </body>

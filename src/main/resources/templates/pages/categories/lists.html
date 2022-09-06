@@ -20,7 +20,21 @@
                     <th>Action</th>
                 </tr>
             </thead>
-            <tbody></tbody>
+            <tbody>
+                <tr th:each="category: ${categories}">
+                    <td th:text="${category.id}"></td>
+                    <td th:text="${category.name}"></td>
+                    <td>
+                        <a th:href="@{/categories/{id}/edit(id=${category.id})}" class="btn btn-outline-info">
+                            <i class="far fa-edit"></i>
+                        </a>
+                        
+                        <a th:href="@{/deleteEmployee(categoryId=*{id})}" class="btn btn-outline-danger ml-2">
+                            <i class="far fa-trash-alt"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
         </table>
     </div>
 </body>

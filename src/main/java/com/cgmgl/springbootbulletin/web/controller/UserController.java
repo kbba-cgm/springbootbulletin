@@ -1,6 +1,9 @@
 package com.cgmgl.springbootbulletin.web.controller;
 
+import java.util.Optional;
+
 import javax.validation.Valid;
+import javax.validation.constraints.Null;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,12 +15,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.cgmgl.springbootbulletin.bl.dto.UserDto;
+import com.cgmgl.springbootbulletin.bl.service.RoleService;
 import com.cgmgl.springbootbulletin.bl.service.UserService;
 
 @Controller
 public class UserController {
 	@Autowired
 	UserService userService;
+
+	@Autowired
+	RoleService roleService;
 
     @GetMapping("/users")
 	public String allUser(Model m) {
@@ -33,14 +40,17 @@ public class UserController {
 
     @GetMapping("/users/create")
 	public String createUser(Model m) {
+		m.addAttribute("roles", roleService.getAllRoles());
 		m.addAttribute("userDto", new UserDto());
 		return "pages/users/create";
 	}
 
 	@PostMapping("/users/store")
 	public String storeUser(@Valid @ModelAttribute("userDto") UserDto userDto, BindingResult br, Model m) {
-		if(br.hasErrors())
+		if(br.hasErrors()){
+			m.addAttribute("roles", roleService.getAllRoles());
 			return "pages/users/create";
+		}
 
 		userService.createUser(userDto);		
 		return "redirect:/users";
@@ -48,6 +58,7 @@ public class UserController {
 
     @GetMapping("/users/{user-id}/edit")
 	public String editUser(@PathVariable("user-id") Long id, Model m) {
+		m.addAttribute("roles", roleService.getAllRoles());
 		m.addAttribute("userDto", userService.findUserbyId(id));
 
 		return "pages/users/edit";
@@ -55,8 +66,10 @@ public class UserController {
 
 	@PostMapping("/users/update")
 	public String updateUser(@Valid @ModelAttribute("userDto") UserDto userDto, BindingResult br, Model m) {
-		if(br.hasErrors())
+		if(br.hasErrors()){
+			m.addAttribute("roles", roleService.getAllRoles());
 			return "pages/users/edit";
+		}
 
 		userService.updateUser(userDto);		
 		return "redirect:/users";

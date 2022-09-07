@@ -1,7 +1,6 @@
 package com.cgmgl.springbootbulletin.web.controller;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.validation.Valid;
 
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.cgmgl.springbootbulletin.bl.dto.PostDto;
 import com.cgmgl.springbootbulletin.bl.service.PostService;
-import com.cgmgl.springbootbulletin.persistence.entity.Post;
 
 @Controller
 public class PostController {

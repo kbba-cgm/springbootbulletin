@@ -12,13 +12,13 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class PostDto {
-    Long id;
+    private Long id;
 
     @NotEmpty(message = "Title must not be empty.")
-    String title;
+    private String title;
 
     @NotEmpty(message = "Content must not be empty.")
-    String content;
+    private String content;
 
     private Timestamp created_at;
 

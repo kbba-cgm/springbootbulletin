@@ -48,12 +48,11 @@
                     <div class="form-group">
                         <label class="form-label">role</label>
                         <div>
-                            <select class="form-select" >
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                              </select>
+                            <select class="form-select" th:field="*{roleDto.id}">
+                                <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
+                            </select>
                         </div>
+                        <p class="text-danger" th:if="${#fields.hasErrors('roleDto')}" th:errors="*{roleDto}" th:text="${#fields.hasErrors('roleDto')}"></p>
                     </div>
                     <!-- <div class="form-group">
                         <div class="form-check form-switch">

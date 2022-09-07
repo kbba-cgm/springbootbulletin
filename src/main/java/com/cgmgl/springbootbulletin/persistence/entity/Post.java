@@ -23,13 +23,13 @@ import lombok.NoArgsConstructor;
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @Column(name = "title", nullable = false)
-    String title;
+    private String title;
 
     @Column(name = "content", nullable = false)
-    String content;
+    private String content;
 
     @Column(name = "created_at", updatable = false)
     @CreationTimestamp

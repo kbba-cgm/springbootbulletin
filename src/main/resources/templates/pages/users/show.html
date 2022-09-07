@@ -30,14 +30,14 @@
                     <img src="https://ui-avatars.com/api/?background=0D8ABC&color=fff&rounded=true" alt="user_photo">
                 </div>
                 <div class="card-username" th:text="${user.name}">Default User name</div>
-                <p th:text="${user.position}">Default position</p>
+                <p th:text="${user.position}">Default Role</p>
             </div>
             <div class="card-user-body">
                 <div>
                     Email: <span th:text="${user.email}">Default email</span>
                 </div>
                 <div>
-                    Phone: <span>+999 99 9999 999</span>
+                    Role: <span th:text="${user.roleDto.name}">User</span>
                 </div>
             </div>
         </div>

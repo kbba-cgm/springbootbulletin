@@ -19,6 +19,7 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Position</th>
+                    <th>Role</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -28,6 +29,7 @@
                     <td th:text="${user.name}"></td>
                     <td th:text="${user.email}"></td>
                     <td th:text="${user.position}"></td>
+                    <td th:text="${user.roleDto.name}"></td>
                     <td>
                         <a th:href="@{/users/{id}(id=${user.id})}" class="btn btn-outline-primary">
                             <i class="fas fa-eye"></i>

@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -23,19 +24,19 @@ import lombok.NoArgsConstructor;
 public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  Long id;
+  private Long id;
 
   @Column(name = "name", nullable = false)
-  String name;
+  private String name;
 
   @Column(name = "email", unique = true, nullable = false)
-  String email;
+  private String email;
 
   @Column(name = "position")
-  String position;
+  private String position;
 
   @Column(name = "password")
-  String password;
+  private String password;
 
   @Column(name = "created_at", updatable = false)
   @CreationTimestamp
@@ -44,11 +45,15 @@ public class User {
   @Column(name = "updated_at")
   private Timestamp updated_at;
 
+  @ManyToOne
+  private Role role;
+
   public User(UserDto userDto) {
     this.id = userDto.getId();
     this.name = userDto.getName();
     this.email = userDto.getEmail();
     this.position = userDto.getPosition();
+    this.role = new Role(userDto.getRoleDto());
     this.password = userDto.getPassword();
     this.created_at = userDto.getCreated_at();
     this.updated_at = userDto.getUpdated_at();

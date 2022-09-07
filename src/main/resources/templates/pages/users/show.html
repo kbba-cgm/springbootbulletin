@@ -18,7 +18,7 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a th:href="@{ /users }">Users</a></li>
-            <li class="breadcrumb-item active" aria-current="page">username / details</li>
+            <li class="breadcrumb-item active" aria-current="page" th:text="${user.name}">username / details</li>
           </ol>
         </nav>
         <h4 class="page-header-title">User Detail</h4>
@@ -29,12 +29,12 @@
                 <div class="card-user-photo">
                     <img src="https://ui-avatars.com/api/?background=0D8ABC&color=fff&rounded=true" alt="user_photo">
                 </div>
-                <div class="card-username">Kyaw bo bo aung</div>
-                <p>Junior Developer</p>
+                <div class="card-username" th:text="${user.name}">Default User name</div>
+                <p th:text="${user.position}">Default position</p>
             </div>
             <div class="card-user-body">
                 <div>
-                    Email: <span>kbba@gmail.com</span>
+                    Email: <span th:text="${user.email}">Default email</span>
                 </div>
                 <div>
                     Phone: <span>+999 99 9999 999</span>

@@ -26,14 +26,14 @@ public class UserController {
 	}
 
     @GetMapping("/users/{user-id}")
-	public String showUser() {
+	public String showUser(@PathVariable("user-id") Long id, Model m) {
+		m.addAttribute("user", userService.findUserbyId(id));
 		return "pages/users/show";
 	}
 
     @GetMapping("/users/create")
 	public String createUser(Model m) {
-		UserDto userDto = new UserDto();
-		m.addAttribute("userDto", userDto);
+		m.addAttribute("userDto", new UserDto());
 		return "pages/users/create";
 	}
 

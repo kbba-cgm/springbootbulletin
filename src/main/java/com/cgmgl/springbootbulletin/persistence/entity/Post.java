@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.cgmgl.springbootbulletin.bl.dto.CategoryDto;
+import com.cgmgl.springbootbulletin.bl.dto.PostDto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,14 +19,17 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "categories")
-public class Category {
+@Table(name = "posts")
+public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    Long id;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "title", nullable = false)
+    String title;
+
+    @Column(name = "content", nullable = false)
+    String content;
 
     @Column(name = "created_at", updatable = false)
     @CreationTimestamp
@@ -34,11 +37,12 @@ public class Category {
 
     @Column(name = "updated_at")
     private Timestamp updated_at;
-    
-    public Category(CategoryDto categoryDto) {
-        id = categoryDto.getId();
-        name = categoryDto.getName();
-        created_at = categoryDto.getCreated_at();
-        updated_at = categoryDto.getUpdated_at();
+
+    public Post(PostDto postDto){
+        this.id = postDto.getId();
+        this.title = postDto.getTitle();
+        this.content = postDto.getContent();
+        this.created_at = postDto.getCreated_at();
+        this.updated_at = postDto.getUpdated_at();
     }
 }

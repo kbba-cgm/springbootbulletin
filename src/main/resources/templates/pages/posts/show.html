@@ -18,7 +18,7 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a th:href="@{ /posts }">Posts</a></li>
-            <li class="breadcrumb-item active" aria-current="page">post name</li>
+            <li class="breadcrumb-item active" aria-current="page" th:text="${post.title}">post name</li>
           </ol>
         </nav>
         <h4 class="page-header-title">Post Detail</h4>
@@ -26,9 +26,7 @@
       <div th:object="${post}" class="card border-primary bg-light card-whole-post">
         <div class="card-body">
             <div class="card-post-category">
-                <span>category</span>
-                <span>category</span>
-                <span>category</span>
+                <span class="badge bg-dark text-light me-1" th:each="c : *{categoryDtos}" th:text="${c.name}">category</span>
             </div>
           <h5 class="mb-3" th:text="*{title}">Default Post Title</h5>
           <p th:text="*{content}">

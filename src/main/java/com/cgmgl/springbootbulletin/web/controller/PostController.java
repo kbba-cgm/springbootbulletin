@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.cgmgl.springbootbulletin.bl.dto.CategoryDto;
 import com.cgmgl.springbootbulletin.bl.dto.PostDto;
+import com.cgmgl.springbootbulletin.bl.service.CategoryService;
 import com.cgmgl.springbootbulletin.bl.service.PostService;
 
 @Controller
@@ -21,6 +23,8 @@ public class PostController {
     @Autowired
 	PostService postService;
 
+	@Autowired
+	CategoryService categoryService;
 
     @GetMapping("/posts")
 	public String allPost(Model m) {
@@ -39,14 +43,17 @@ public class PostController {
 
     @GetMapping("/posts/create")
 	public String createPost(Model m) {
+		m.addAttribute("categories", categoryService.getAllCategories());
 		m.addAttribute("postDto", new PostDto());
 		return "pages/posts/create";
 	}
 
 	@PostMapping("/posts/store")
 	public String storePost(@Valid @ModelAttribute("postDto") PostDto postDto, BindingResult br, Model m) {
-		if(br.hasErrors())
+		if(br.hasErrors()){
+			m.addAttribute("categories", categoryService.getAllCategories());
 			return "pages/posts/create";
+		}
 
 		postService.createPost(postDto);		
 		return "redirect:/posts";
@@ -54,15 +61,27 @@ public class PostController {
 
     @GetMapping("/posts/{post-id}/edit")
 	public String editPost(@PathVariable("post-id") Long id, Model m) {
-		m.addAttribute("postDto", postService.findPostbyId(id));
+		PostDto postDto = postService.findPostbyId(id);
+		int size = postDto.getCategoryDtos().size();
+		long[] ids = new long[size];
+		int i = 0;
+		for (CategoryDto c : postDto.getCategoryDtos()) {
+			ids[i++] = c.getId();
+		}
+		postDto.setCategoryIds(ids);
+
+		m.addAttribute("categories", categoryService.getAllCategories());
+		m.addAttribute("postDto", postDto);
 
 		return "pages/posts/edit";
 	}
 
 	@PostMapping("/posts/update")
 	public String updatePost(@Valid @ModelAttribute("postDto") PostDto postDto, BindingResult br, Model m) {
-		if(br.hasErrors())
+		if(br.hasErrors()){
+			m.addAttribute("categories", categoryService.getAllCategories());
 			return "pages/posts/edit";
+		}
 
 		postService.updatePost(postDto);		
 		return "redirect:/posts";

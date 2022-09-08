@@ -2,7 +2,6 @@ package com.cgmgl.springbootbulletin.bl.dto;
 
 import java.sql.Timestamp;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 

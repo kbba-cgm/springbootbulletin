@@ -54,20 +54,20 @@ footer {
 .card-post-category {
     margin-bottom: 2rem;
     font-size: 0.8rem;
-    color: firebrick;
+    color: white;
 }
 
 .card-post-category span {
-    border: 1px solid firebrick;
+    border: 1px solid white;
     padding: 0.3rem 0.3rem;
     margin-right: 0.5rem;
     border-radius: 3px;
 }
 
 .card-post-category span::before {
-    content: "#";
+    content: "# ";
     font-size: 0.8rem;
-    color: firebrick;
+    color: white;
 }
 
 .card-post-date {

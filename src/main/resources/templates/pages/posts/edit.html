@@ -38,18 +38,11 @@
                     <div class="form-group">
                         <label class="form-label">Category</label>
                         <div>
-                            <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input" />
-                                <label class="form-check-label">category1</label>
+                            <div class="form-check form-check-inline" th:each="category : ${categories}">
+                                <input th:field="*{categoryIds}" th:value="${category.id}" type="checkbox" class="form-check-input" />
+                                <label th:for="${category.name}" class="form-check-label" th:text="${category.name}"></label>
                             </div>
-                            <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input" />
-                                <label class="form-check-label">category2</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input" />
-                                <label class="form-check-label">category3</label>
-                            </div>
+                            <p class="text-danger" th:if="${#fields.hasErrors('categoryIds')}" th:errors="*{categoryIds}" th:text="${#fields.hasErrors('categoryIds')}"></p>
                         </div>
                     </div>
                     <div class="form-group">

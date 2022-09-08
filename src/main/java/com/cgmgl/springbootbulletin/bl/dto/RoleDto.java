@@ -2,8 +2,6 @@ package com.cgmgl.springbootbulletin.bl.dto;
 
 import java.util.Set;
 
-import javax.validation.constraints.NotBlank;
-
 import com.cgmgl.springbootbulletin.persistence.entity.Role;
 import com.cgmgl.springbootbulletin.persistence.entity.User;
 

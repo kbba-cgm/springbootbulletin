@@ -43,6 +43,9 @@ public class Post {
     @ManyToMany(targetEntity = Category.class)
     private Set<Category> categories = new HashSet<>();
 
+    @Column(name = "is_published")
+    private boolean published = false;
+
     @Column(name = "created_at", updatable = false)
     @CreationTimestamp
     private Timestamp created_at;
@@ -55,6 +58,7 @@ public class Post {
         this.title = postDto.getTitle();
         this.content = postDto.getContent();
         this.user = new User(postDto.getUserDto());
+        this.published = postDto.isPublished();
         this.created_at = postDto.getCreated_at();
         this.updated_at = postDto.getUpdated_at();
     }

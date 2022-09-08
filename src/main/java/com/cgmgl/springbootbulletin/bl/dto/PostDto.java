@@ -31,6 +31,8 @@ public class PostDto {
     @Valid
     private Set<CategoryDto> categoryDtos = new HashSet<>();
 
+    private boolean published = false;
+
     private Timestamp created_at;
 
     private Timestamp updated_at;
@@ -42,6 +44,7 @@ public class PostDto {
         this.title = post.getTitle();
         this.content = post.getContent();
         this.userDto = new UserDto(post.getUser());
+        this.published = post.isPublished();
         this.created_at = post.getCreated_at();
         this.updated_at = post.getUpdated_at();
     }

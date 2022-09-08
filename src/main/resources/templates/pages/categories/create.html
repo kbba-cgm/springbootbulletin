@@ -30,6 +30,7 @@
                         <p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:text="${#fields.hasErrors('name')}"></p>
                     </div>
                     <div class="form-group">
+                        <a class="btn btn-secondary me-1" th:href="@{/categories}">Back</a>
                         <input class="btn btn-primary" type="submit" name="submit" value="Create Category" />
                     </div>
                 </form>

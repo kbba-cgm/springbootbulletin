@@ -1,6 +1,7 @@
 package com.cgmgl.springbootbulletin.bl.dto;
 
 import java.sql.Timestamp;
+import java.util.Set;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -30,6 +31,8 @@ public class UserDto {
     private String password;
 
     private RoleDto roleDto;
+
+    private Set<PostDto> posts;
   
     private Timestamp created_at;
   

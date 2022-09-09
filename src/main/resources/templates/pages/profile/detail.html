@@ -1,84 +1,103 @@
 <!DOCTYPE html>
-<html
-  lang="en"
-  xmlns:th="http://thymeleaf.org"
-  xmlns:layout="http://www.wltraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{layouts/main_template}"
->
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Profile</title>
-  </head>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.wltraq.net.nz/thymeleaf/layout"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security" layout:decorate="~{layouts/main_template}">
 
-  <body>
-    <div layout:fragment="content">
-      <div class="mb-4">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a th:href="@{ /users }">Profile</a></li>
-            <li class="breadcrumb-item active" aria-current="page">detail</li>
-          </ol>
-        </nav>
-        <h4 class="page-header-title">My profile</h4>
-      </div>
-      <div class="row">
-        <div class="col-lg-4">
-            <div class="card user-card border-primary bg-light card-whole-post">
-                <div class="card-body text-center">
-                    <div class="card-user-header">
-                        <div class="card-user-photo">
-                            <img src="https://ui-avatars.com/api/?background=0D8ABC&color=fff&rounded=true" alt="user_photo">
-                        </div>
-                        <div class="card-username">Kyaw bo bo aung</div>
-                        <p>Junior Developer</p>
-                    </div>
-                    <div class="card-user-body">
-                        <div>
-                            Email: <span>kbba@gmail.com</span>
-                        </div>
-                        <div>
-                            Phone: <span>+999 99 9999 999</span>
-                        </div>
-                    </div>
-                </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Profile</title>
+</head>
+
+<body>
+  <div layout:fragment="content">
+    <div class="mb-4">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a th:href="@{ /users }">Profile</a></li>
+          <li class="breadcrumb-item active" aria-current="page">detail</li>
+        </ol>
+      </nav>
+      <h4 class="page-header-title">My profile</h4>
+    </div>
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card user-card border-primary bg-light card-whole-post">
+          <div class="card-body text-center">
+            <div class="card-user-header">
+              <div class="card-user-photo">
+                <img src="https://ui-avatars.com/api/?background=0D8ABC&color=fff&rounded=true" alt="user_photo">
+              </div>
+              <div class="card-username" sec:authentication="name">Username</div>
+              <p sec:authentication="principal.position">default position</p>
             </div>
+            <div class="card-user-body">
+              <div>
+                Email: <span sec:authentication="principal.email">example@email.com</span>
+              </div>
+              <div>
+                Role: <span sec:authentication="principal.roleDto.name">USER</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col-lg-8">
-            <div class="card border-primary">
-                <div class="card-body">
-                    <form action="#" method="post">
-                        <div class="form-group d-flex align-items-center">
-                            <label for="name" class="form-label me-3 w-25">Username</label>
-                            <input class="form-control" type="text" id="name" name="name"  />
-                        </div>
-                        <div class="form-group d-flex align-items-center">
-                            <label for="email" class="form-label me-3 w-25">Email</label>
-                            <input class="form-control" type="email" id="email" name="email"  />
-                        </div>
-                        <div class="form-group d-flex align-items-center">
-                            <label for="password" class="form-label me-3 w-25">Password</label>
-                            <input class="form-control" type="password" id="password" name="password"  />
-                        </div>
-                        <div class="form-group d-flex align-items-center">
-                            <label class="form-label me-3 w-25">role</label>
-                            <div class="w-100">
-                                <select class="form-select form-control" >
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                  </select>
-                            </div>
-                        </div>
-                        <div class="form-group text-end">
-                            <input class="btn btn-primary" type="submit" name="submit" value="Update Profile" />
-                        </div>
-                    </form>
+      </div>
+      <div class="col-lg-8">
+        <div class="card border-primary">
+          <div class="card-body">
+            <form th:action="@{/profile/update}" method="post" th:object="${user}">
+              <input type="hidden" th:field="*{id}">
+              <div class="form-group d-flex">
+                <label for="name" class="form-label me-3 w-25">Username</label>
+                <div class="w-100">
+                  <input class="form-control" type="text" th:field="*{name}" />
+                  <p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+                    th:text="${#fields.hasErrors('name')}"></p>
                 </div>
-            </div>
+              </div>
+              <div class="form-group d-flex">
+                <label for="email" class="form-label me-3 w-25">Email</label>
+                <div class="w-100">
+                  <input class="form-control" type="email" th:field="*{email}" />
+                  <p class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                    th:text="${#fields.hasErrors('email')}"></p>
+                </div>
+              </div>
+              <div class="form-group d-flex">
+                <label for="position" class="form-label me-3 w-25">Position</label>
+                <div class="w-100">
+                  <input class="form-control" type="text" th:field="*{position}" />
+                  <p class="text-danger" th:if="${#fields.hasErrors('position')}" th:errors="*{position}"
+                    th:text="${#fields.hasErrors('position')}"></p>
+                </div>
+              </div>
+              <div class="form-group d-flex">
+                <label for="password" class="form-label me-3 w-25">Password</label>
+                <div class="w-100">
+                  <input class="form-control" type="password" th:field="*{password}" />
+                  <p class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+                    th:text="${#fields.hasErrors('password')}"></p>
+                </div>
+              </div>
+              <div class="form-group d-flex">
+                <label class="form-label me-3 w-25">role</label>
+                <div class="w-100">
+                  <select class="form-select" th:field="*{roleDto.id}">
+                    <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
+                  </select>
+                  <p class="text-danger" th:if="${#fields.hasErrors('roleDto')}" th:errors="*{roleDto}"
+                    th:text="${#fields.hasErrors('roleDto')}"></p>
+                </div>
+              </div>
+              <div class="form-group text-end">
+                <input class="btn btn-primary" type="submit" name="submit" value="Update Profile" />
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>

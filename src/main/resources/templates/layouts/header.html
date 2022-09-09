@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.wltraq.net.nz/thymeleaf/layout"
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.wltraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
     layout:decorate="~{layouts/main_template}">
 
 <head>
@@ -23,12 +23,16 @@
                     <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
-                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">UserName</a>
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span sec:authentication="name"></span>
+                            </a>
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="#!">Account</a>
                                 <a class="dropdown-item" href="#!">Setting</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#!">Logout</a>
+                                <form class="dropdown-item" th:action="@{/logout}" method="post">
+                                    <input type="submit" value="Logout" class="btn btn-danger">
+                                </form>
                             </div>
                         </li>
                     </ul>

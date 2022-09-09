@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.cgmgl.springbootbulletin.bl.dto.RoleDto;
@@ -20,6 +21,9 @@ import com.cgmgl.springbootbulletin.persistence.entity.User;
 public class UserServiceImpl implements UserService {
     @Autowired
     UserDao userDao;
+
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     RoleDao roleDao;
@@ -41,11 +45,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto createUser(UserDto userDto) {
         Timestamp now = new Timestamp(new Date().getTime());
-        
-        RoleDto roleDto = getRoleForUserById(userDto.getRoleDto().getId()); 
+        RoleDto roleDto = getDefaultRole();
+
+        if(userDto.getRoleDto() != null)
+            roleDto = getRoleForUserById(userDto.getRoleDto().getId()); 
+
         userDto.setRoleDto(roleDto);
 
         User user = new User(userDto);
+
+        if(user.getPassword() != null)
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));;
+
         user.setCreated_at(now);
         user.setUpdated_at(now);
 
@@ -55,11 +66,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto updateUser(UserDto userDto) {
         Timestamp now = new Timestamp(new Date().getTime());
+        RoleDto roleDto = getDefaultRole();
 
-        RoleDto roleDto = getRoleForUserById(userDto.getRoleDto().getId()); 
+        if(userDto.getRoleDto() != null)
+            roleDto = getRoleForUserById(userDto.getRoleDto().getId()); 
+            
         userDto.setRoleDto(roleDto);
 
         User user = new User(userDto);   
+        if(user.getPassword() != null)
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));;
+            
         user.setUpdated_at(now);
 
         return new UserDto(userDao.save(user));
@@ -96,5 +113,10 @@ public class UserServiceImpl implements UserService {
 
     private RoleDto getDefaultRole() {
         return new RoleDto(roleDao.findById(2L).get());
+    }
+
+    @Override
+    public UserDto findUserByEmail(String email) {
+        return new UserDto(userDao.findByEmail(email));
     }
 }

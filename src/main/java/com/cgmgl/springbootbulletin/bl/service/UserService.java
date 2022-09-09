@@ -23,4 +23,6 @@ public interface UserService {
     boolean isUserExistByName(String userName);
 
     boolean isUserExistByEmail(String email);
+
+    UserDto findUserByEmail(String email);
 }

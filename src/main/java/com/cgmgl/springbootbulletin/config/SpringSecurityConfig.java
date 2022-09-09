@@ -8,7 +8,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import com.cgmgl.springbootbulletin.bl.service.Impl.MySimpleUrlAuthenticationSuccessHandler;
 import com.cgmgl.springbootbulletin.bl.service.Impl.MyUserDetailServiceImpl;
 
 @Configuration
@@ -25,6 +27,11 @@ public class SpringSecurityConfig {
     }
 
     @Bean
+    public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
+        return new MySimpleUrlAuthenticationSuccessHandler();
+    }
+
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .authorizeRequests(authorize -> authorize
@@ -34,6 +41,7 @@ public class SpringSecurityConfig {
             .formLogin(form -> form
                     .loginPage("/login")
                     .usernameParameter("email").passwordParameter("password")
+                    .successHandler(myAuthenticationSuccessHandler())
                     .permitAll())
             .logout(form -> form
                     .logoutSuccessUrl("/login"))

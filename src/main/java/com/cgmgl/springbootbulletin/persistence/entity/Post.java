@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -40,7 +41,7 @@ public class Post {
     @ManyToOne
     private User user;
 
-    @ManyToMany(targetEntity = Category.class)
+    @ManyToMany(targetEntity = Category.class, fetch = FetchType.EAGER)
     private Set<Category> categories = new HashSet<>();
 
     @Column(name = "published")

@@ -18,6 +18,7 @@ public class MyUserDetailServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         UserDto userDto = userService.findUserByEmail(email);
+
         if(userDto == null)
             throw new UsernameNotFoundException("User does not exist");
 

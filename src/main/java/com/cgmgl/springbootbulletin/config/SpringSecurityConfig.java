@@ -36,7 +36,8 @@ public class SpringSecurityConfig {
         http
             .authorizeRequests(authorize -> authorize
                     .antMatchers("/register").permitAll()
-                    .antMatchers("/posts/**", "/profile/**").hasAnyAuthority("ADMIN", "USER")
+                    .antMatchers("/user/posts/*", "/user/posts/create", "/posts/store", "/user/posts/*/edit", "/posts/update", "/posts/*/delete").hasAnyAuthority("ADMIN", "USER")
+                    .antMatchers("/home/**" , "/user/posts", "/profile/**").hasAnyAuthority("ADMIN", "USER")
                     .antMatchers("/**").hasAuthority("ADMIN"))
             .formLogin(form -> form
                     .loginPage("/login")

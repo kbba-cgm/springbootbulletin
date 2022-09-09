@@ -17,6 +17,7 @@ import com.cgmgl.springbootbulletin.bl.dto.CategoryDto;
 import com.cgmgl.springbootbulletin.bl.dto.PostDto;
 import com.cgmgl.springbootbulletin.bl.service.CategoryService;
 import com.cgmgl.springbootbulletin.bl.service.PostService;
+import com.cgmgl.springbootbulletin.bl.service.PrincipalService;
 
 @Controller
 public class PostController {
@@ -26,13 +27,22 @@ public class PostController {
 	@Autowired
 	CategoryService categoryService;
 
+	@Autowired
+	PrincipalService principalService;
+
     @GetMapping("/posts")
 	public String allPost(Model m) {
 		m.addAttribute("posts", postService.getAllPosts());
 		return "pages/posts/lists";
 	}
 
-    @GetMapping("/posts/{post-id}")
+	@GetMapping("/user/posts")
+	public String myPosts(Model m) {
+		m.addAttribute("posts", postService.getOwnPosts());
+		return "pages/posts/own-lists";
+	}
+
+    @GetMapping({"/posts/{post-id}", "user/posts/{post-id}"})
 	public String showPost(@PathVariable("post-id") Long id, Model m) {
 		PostDto post = postService.findPostbyId(id);
 		String date = new SimpleDateFormat("MM/dd/yyyy").format(post.getCreated_at());
@@ -41,7 +51,7 @@ public class PostController {
 		return "pages/posts/show";
 	}
 
-    @GetMapping("/posts/create")
+    @GetMapping({"/posts/create", "/user/posts/create"})
 	public String createPost(Model m) {
 		m.addAttribute("categories", categoryService.getAllCategories());
 		m.addAttribute("postDto", new PostDto());
@@ -55,11 +65,11 @@ public class PostController {
 			return "pages/posts/create";
 		}
 
-		postService.createPost(postDto);		
-		return "redirect:/posts";
+		postService.createPost(postDto);
+		return redirectPostPageByRole();
 	}
 
-    @GetMapping("/posts/{post-id}/edit")
+    @GetMapping({"/posts/{post-id}/edit" , "user/posts/{post-id}/edit"})
 	public String editPost(@PathVariable("post-id") Long id, Model m) {
 		PostDto postDto = postService.findPostbyId(id);
 		int size = postDto.getCategoryDtos().size();
@@ -84,13 +94,20 @@ public class PostController {
 		}
 
 		postService.updatePost(postDto);		
-		return "redirect:/posts";
+		return redirectPostPageByRole();
 	}
 
 	@PostMapping("/posts/{post-id}/delete")
 	public String deleteCategory(@PathVariable("post-id") Long id, Model m) {
 		postService.deletePostById(id);
 
-		return "redirect:/posts";
+		return redirectPostPageByRole();
+	}
+
+	private String redirectPostPageByRole(){
+		if(principalService.isAdmin())		
+			return "redirect:/posts";
+
+		return "redirect:/user/posts";
 	}
 }

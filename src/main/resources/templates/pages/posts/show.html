@@ -38,7 +38,8 @@
         </div>
       </div>
       <div class="text-center mt-3">
-        <a class="btn btn-secondary" th:href="@{/posts}">Back</a>
+        <a sec:authorize="hasAuthority('ADMIN')" class="btn btn-secondary" th:href="@{/posts}">Back</a>
+        <a sec:authorize="hasAuthority('USER')" class="btn btn-secondary" th:href="@{/user/posts}">Back</a>
       </div>
     </div>
   </body>

@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -29,6 +30,9 @@ public class PostServiceImpl implements PostService {
 
     @Autowired
     UserDao userDao;
+
+    @Autowired
+    PrincipalServiceImpl principalServiceImpl;
 
     @Autowired
     CategoryDao categoryDao;
@@ -104,11 +108,38 @@ public class PostServiceImpl implements PostService {
     }
  
     private Set<CategoryDto>  getCategoriesFromIds(long[] categoryIds) {
+        if(categoryIds == null || categoryIds.length <= 0)
+            return new HashSet<>();
+
         LongStream stream = Arrays.stream(categoryIds);
         return stream.mapToObj(categoryId -> new CategoryDto(categoryDao.findById(categoryId).get())).collect(Collectors.toSet());
     }
 
     private UserDto getAuthor() {
-        return new UserDto(userDao.findById(1L).get());
+        long auth_id = principalServiceImpl.getPrincipal().getId();
+        return new UserDto(userDao.findById(auth_id).get());
+    }
+
+    @Override
+    public List<PostDto> getAllPublicPosts() {
+        List<PostDto> list = new ArrayList<>();
+        postDao.findByPublishedTrue().forEach(post -> {
+            PostDto postDto = new PostDto(post);
+            post.getCategories().forEach(c -> postDto.getCategoryDtos().add(new CategoryDto(c)));
+            list.add(postDto);
+        });
+        return list;
+    }
+
+    @Override
+    public List<PostDto> getOwnPosts() {
+        long auth_id = principalServiceImpl.getPrincipal().getId();
+        List<PostDto> list = new ArrayList<>();
+        postDao.findPostsByUserId(auth_id).forEach(post -> {
+            PostDto postDto = new PostDto(post);
+            post.getCategories().forEach(c -> postDto.getCategoryDtos().add(new CategoryDto(c)));
+            list.add(postDto);
+        });
+        return list;
     }
 }

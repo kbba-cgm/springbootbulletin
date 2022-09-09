@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.wltraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/main_template}">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>aaa</title>
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <div class="d-flex justify-content-between">
+            <div class="d-flex flex-row align-items-center">
+                <div class="icon"> <i class="bx bxl-mailchimp"></i> </div>
+                <div class="ms-2">
+                    <h6 style="font-weight: 500; font-size: 1.5rem;" class="mb-0" th:text="${post.userDto.name}">Username</h6>
+                    <span style="font-size: 0.75rem; color: darkgray;" th:text="${post.updated_at}">1 days ago</span>
+                </div>
+            </div>
+        </div>
+        <div class="my-card card p-3 my-3">
+            <div class="mt-2">
+                <h5 style="color: rebeccapurple" class="heading" th:text="${post.title}">Post title</h5>
+                <div class="mt-4" th:text="${ post.content }">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium impedit alias nam, optio ducimus
+                    non .
+                </div>
+            </div>
+            <div class="mt-3" th:each="category : ${post.categoryDtos}">
+                <span class="badge bg-primary" th:text="${category.name}">Category</span>
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <a class="btn btn-secondary" th:href="@{/home}">Back</a>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -12,6 +12,10 @@ public interface PostService {
 
     List<PostDto> getAllPosts();
 
+    List<PostDto> getAllPublicPosts();
+
+    List<PostDto> getOwnPosts();
+
     PostDto createPost(PostDto postDto);
 
     PostDto updatePost(PostDto postDto);

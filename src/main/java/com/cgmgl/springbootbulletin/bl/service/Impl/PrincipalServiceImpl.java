@@ -14,5 +14,9 @@ public class PrincipalServiceImpl implements PrincipalService {
         MyUserDetail myUserDetail = (MyUserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return myUserDetail;
     }
-    
+
+    @Override
+    public boolean isAdmin() {
+        return getPrincipal().getRoleDto().getId() == 1;
+    } 
 }

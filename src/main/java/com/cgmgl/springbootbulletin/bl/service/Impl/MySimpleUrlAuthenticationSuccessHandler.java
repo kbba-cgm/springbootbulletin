@@ -44,7 +44,7 @@ public class MySimpleUrlAuthenticationSuccessHandler implements AuthenticationSu
     protected String determineRedirectUrl(final Authentication authentication) {
 
         Map<String, String> roleTargetUrlMap = new HashMap<>();
-        roleTargetUrlMap.put("USER", "/posts");
+        roleTargetUrlMap.put("USER", "/home");
         roleTargetUrlMap.put("ADMIN", "/");
     
         final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();

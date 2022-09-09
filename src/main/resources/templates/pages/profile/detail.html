@@ -79,16 +79,6 @@
                     th:text="${#fields.hasErrors('password')}"></p>
                 </div>
               </div>
-              <div class="form-group d-flex">
-                <label class="form-label me-3 w-25">role</label>
-                <div class="w-100">
-                  <select class="form-select" th:field="*{roleDto.id}">
-                    <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
-                  </select>
-                  <p class="text-danger" th:if="${#fields.hasErrors('roleDto')}" th:errors="*{roleDto}"
-                    th:text="${#fields.hasErrors('roleDto')}"></p>
-                </div>
-              </div>
               <div class="form-group text-end">
                 <input class="btn btn-primary" type="submit" name="submit" value="Update Profile" />
               </div>

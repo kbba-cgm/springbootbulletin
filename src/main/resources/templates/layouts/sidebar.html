@@ -17,9 +17,11 @@
             <div class="list-group list-group-flush">
                 
                 <a sec:authorize="hasAuthority('ADMIN')" class="list-group-item list-group-item-action list-group-item-light p-3" th:classappend='${ #httpServletRequest.requestURI.matches("/") ? "active" : ""}' th:href="@{ / }">Dashboard</a>
+                <a sec:authorize="hasAnyAuthority('ADMIN', 'USER')" class="list-group-item list-group-item-action list-group-item-light p-3" th:classappend='${ #httpServletRequest.requestURI.matches("/home(.*)") ? "active" : ""}' th:href="@{ /home }">News Feed</a>
                 <a sec:authorize="hasAuthority('ADMIN')" class="list-group-item list-group-item-action list-group-item-light p-3" th:classappend='${ #httpServletRequest.requestURI.matches("/users(.*)") ? "active" : ""}' th:href="@{ /users }">Users</a>
                 <a sec:authorize="hasAuthority('ADMIN')" class="list-group-item list-group-item-action list-group-item-light p-3" th:classappend='${ #httpServletRequest.requestURI.matches("/categories(.*)") ? "active" : ""}' th:href="@{ /categories }">Categories</a>
-                <a sec:authorize="hasAnyAuthority('ADMIN', 'USER')" class="list-group-item list-group-item-action list-group-item-light p-3" th:classappend='${ #httpServletRequest.requestURI.matches("/posts(.*)") ? "active" : ""}' th:href="@{ /posts }">Posts</a>
+                <a sec:authorize="hasAuthority('ADMIN')" class="list-group-item list-group-item-action list-group-item-light p-3" th:classappend='${ #httpServletRequest.requestURI.matches("/posts(.*)") ? "active" : ""}' th:href="@{ /posts }">Posts</a>
+                <a sec:authorize="hasAuthority('USER')" class="list-group-item list-group-item-action list-group-item-light p-3" th:classappend='${ #httpServletRequest.requestURI.matches("/user/posts(.*)") ? "active" : ""}' th:href="@{ /user/posts }">My Posts</a>
                 <a sec:authorize="hasAnyAuthority('ADMIN', 'USER')" class="list-group-item list-group-item-action list-group-item-light p-3" th:classappend='${ #httpServletRequest.requestURI.matches("/profile(.*)") ? "active" : ""}' th:href="@{ /profile/detail }">Profile</a>
             </div>
         </div>

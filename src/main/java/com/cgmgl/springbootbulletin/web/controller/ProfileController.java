@@ -41,7 +41,13 @@ public class ProfileController {
             return "pages/profile/detail";
         }
 
-        userService.updateUser(userDto);
+        UserDto updated_user = userService.updateUser(userDto);
+
+        if(updated_user == null) {
+            m.addAttribute("fail", "Incorrect credentials");
+            return "pages/profile/detail";
+        }
+
         principalService.getPrincipal().updatePrincipal(userDto);
         return "redirect:/profile/detail";
     }

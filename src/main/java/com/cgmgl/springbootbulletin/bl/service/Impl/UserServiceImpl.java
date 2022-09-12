@@ -28,6 +28,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     RoleDao roleDao;
 
+    @Autowired
+    PrincipalServiceImpl principalServiceImpl;
+
     @Override
     public UserDto findUserbyId(long id) {
         return new UserDto(userDao.findById(id).get());
@@ -65,11 +68,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto updateUser(UserDto userDto) {
+        if(!validatedUserId(userDto))
+            return null;
+
         Timestamp now = new Timestamp(new Date().getTime());
         RoleDto roleDto = getDefaultRole();
 
-        if(userDto.getRoleDto() != null)
-            roleDto = getRoleForUserById(userDto.getRoleDto().getId()); 
+        if(principalServiceImpl.isAdmin())
+            roleDto = getRoleForUserById(1L); 
             
         userDto.setRoleDto(roleDto);
 
@@ -118,5 +124,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto findUserByEmail(String email) {
         return new UserDto(userDao.findByEmail(email));
+    }
+
+    private boolean validatedUserId(UserDto userDto) {
+        if(userDto.getId() != principalServiceImpl.getPrincipal().getId())
+            return false;
+        
+        return true;
     }
 }

@@ -79,8 +79,11 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostDto updatePost(PostDto postDto) {
+        if(!validatedPostUser(postDto))
+            return null;
+
         Timestamp now = new Timestamp(new Date().getTime());
-        postDto.setUserDto(getAuthor());
+        postDto.setUserDto(getAuthor(postDto));
         Set<CategoryDto> categoryDtos = getCategoriesFromIds(postDto.getCategoryIds());
 
         postDto.setCategoryDtos(categoryDtos);
@@ -115,6 +118,14 @@ public class PostServiceImpl implements PostService {
         return stream.mapToObj(categoryId -> new CategoryDto(categoryDao.findById(categoryId).get())).collect(Collectors.toSet());
     }
 
+    private UserDto getAuthor(PostDto postdDto) {
+        if(principalServiceImpl.isAdmin())
+            return findPostbyId(postdDto.getId()).getUserDto();
+
+        long auth_id = principalServiceImpl.getPrincipal().getId();
+        return new UserDto(userDao.findById(auth_id).get());
+    }
+
     private UserDto getAuthor() {
         long auth_id = principalServiceImpl.getPrincipal().getId();
         return new UserDto(userDao.findById(auth_id).get());
@@ -141,5 +152,16 @@ public class PostServiceImpl implements PostService {
             list.add(postDto);
         });
         return list;
+    }
+
+    private boolean validatedPostUser(PostDto postDto) {
+        if(principalServiceImpl.isAdmin())
+            return true;
+
+        Long postOwnerId = findPostbyId(postDto.getId()).getUserDto().getId();
+        if(postOwnerId != principalServiceImpl.getPrincipal().getId())
+            return false;
+        
+        return true;
     }
 }

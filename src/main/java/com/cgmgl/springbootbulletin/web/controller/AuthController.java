@@ -24,8 +24,7 @@ public class AuthController {
     UserService userService;
     
     @GetMapping("/login")
-    public String showLogin(Model m) {
-        // m.addAttribute("user", new UserDto());
+    public String showLogin() {
         return "pages/auth/login";
     }
 

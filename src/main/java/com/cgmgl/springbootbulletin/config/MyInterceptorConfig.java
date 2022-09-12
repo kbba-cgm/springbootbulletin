@@ -5,17 +5,22 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.cgmgl.springbootbulletin.bl.service.Impl.MyRequestInterceptor;
+import com.cgmgl.springbootbulletin.web.Interceptor.PostActionInterceptor;
+import com.cgmgl.springbootbulletin.web.Interceptor.PostInterceptor;
 
 @Configuration
-public class PostInterceptor implements WebMvcConfigurer {
+public class MyInterceptorConfig implements WebMvcConfigurer {
     @Autowired
-    MyRequestInterceptor myRequestInterceptor;
+    PostInterceptor postInterceptor;
+
+    @Autowired
+    PostActionInterceptor postActionInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         WebMvcConfigurer.super.addInterceptors(registry);
-        registry.addInterceptor(myRequestInterceptor).addPathPatterns("/home/posts/*");
+        registry.addInterceptor(postInterceptor).addPathPatterns("/home/posts/*");
+        registry.addInterceptor(postActionInterceptor).addPathPatterns("/user/posts/**");
     }
     
 }

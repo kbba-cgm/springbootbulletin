@@ -93,7 +93,12 @@ public class PostController {
 			return "pages/posts/edit";
 		}
 
-		postService.updatePost(postDto);		
+		PostDto updatedPost = postService.updatePost(postDto);
+		if(updatedPost == null){
+			m.addAttribute("fail", "Wrong credentials.");
+			return "pages/posts";
+		}
+		
 		return redirectPostPageByRole();
 	}
 

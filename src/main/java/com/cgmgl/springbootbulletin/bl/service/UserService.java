@@ -1,6 +1,10 @@
 package com.cgmgl.springbootbulletin.bl.service;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.ServletRequest;
 
 import org.springframework.stereotype.Service;
 
@@ -12,9 +16,11 @@ public interface UserService {
 
     List<UserDto> getAllUsers();
 
-    UserDto createUser(UserDto userDto);
+    UserDto createUser(UserDto userDto) throws FileNotFoundException, IOException;
 
     UserDto updateUser(UserDto userDto);
+
+    UserDto updateUser(UserDto userDto, ServletRequest request) throws FileNotFoundException, IOException;
 
     void deleteUser(UserDto userDto);
 

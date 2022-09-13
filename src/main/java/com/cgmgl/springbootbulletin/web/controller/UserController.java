@@ -1,5 +1,8 @@
 package com.cgmgl.springbootbulletin.web.controller;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +46,7 @@ public class UserController {
 	}
 
 	@PostMapping("/users/store")
-	public String storeUser(@Valid @ModelAttribute("userDto") UserDto userDto, BindingResult br, Model m) {
+	public String storeUser(@Valid @ModelAttribute("userDto") UserDto userDto, BindingResult br, Model m) throws FileNotFoundException, IOException {
 		if(br.hasErrors()){
 			m.addAttribute("roles", roleService.getAllRoles());
 			return "pages/users/create";

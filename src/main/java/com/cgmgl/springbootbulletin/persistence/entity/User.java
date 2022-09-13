@@ -54,6 +54,9 @@ public class User {
   @OneToMany(mappedBy = "user")
   private Set<Post> posts;
 
+  @Column(name = "photo")
+  private String photo;
+
   public User(UserDto userDto) {
     this.id = userDto.getId();
     this.name = userDto.getName();
@@ -61,6 +64,7 @@ public class User {
     this.position = userDto.getPosition();
     this.role = new Role(userDto.getRoleDto());
     this.password = userDto.getPassword();
+    this.photo = userDto.getPhoto();
     this.created_at = userDto.getCreated_at();
     this.updated_at = userDto.getUpdated_at();
   }

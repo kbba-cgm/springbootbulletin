@@ -79,6 +79,22 @@
                     th:text="${#fields.hasErrors('password')}"></p>
                 </div>
               </div>
+              <div class="form-group d-flex">
+                <div class="w-25">
+                    <label class="d-block px-1 mb-2">Photo</label>
+                    <input type="file" class="form-control" id="uploadPhoto" name="uploadPhoto" hidden>
+                </div>
+                <div class="flex-fill text-center" id="photo-drop-area">
+                    <img th:if="${#strings.isEmpty(user.photo_handler)}" id="preview-photo" src="https://static.thenounproject.com/png/1768486-200.png" alt="userphoto" width="100" height="100">
+                    <img th:unless="${#strings.isEmpty(user.photo_handler)}" id="preview-photo" th:src="${user.photo_handler}" alt="userphoto" width="100" height="100">
+                    <span id="remove-btn" class="d-none ms-2"><i class="far fa-trash-alt text-danger"></i></span>
+                    <div>
+                      <label for="uploadPhoto" class="btn btn-success">upload</label>
+                    </div>
+                    <div class="text-danger" id="photo-type-error"></div>
+                </div>
+                <input type="text" th:field="*{photo_handler}" >
+              </div>
               <div class="form-group text-end">
                 <input class="btn btn-primary" type="submit" name="submit" value="Update Profile" />
               </div>

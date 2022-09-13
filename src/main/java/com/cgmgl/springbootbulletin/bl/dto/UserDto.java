@@ -34,6 +34,10 @@ public class UserDto {
 
     private Set<PostDto> posts;
   
+    private String photo; // file_path to save in db
+
+    private String photo_handler; // to carry base64 String
+
     private Timestamp created_at;
   
     private Timestamp updated_at;
@@ -45,6 +49,7 @@ public class UserDto {
         this.position = user.getPosition();
         this.roleDto = new RoleDto(user.getRole());
         this.password = user.getPassword();
+        this.photo = user.getPhoto();
         this.created_at = user.getCreated_at();
         this.updated_at = user.getUpdated_at();
     }

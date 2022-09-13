@@ -1,9 +1,13 @@
 package com.cgmgl.springbootbulletin.bl.service.Impl;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.servlet.ServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.cgmgl.springbootbulletin.bl.dto.RoleDto;
 import com.cgmgl.springbootbulletin.bl.dto.UserDto;
 import com.cgmgl.springbootbulletin.bl.service.UserService;
+import com.cgmgl.springbootbulletin.helper.PhotoUploadHelper;
 import com.cgmgl.springbootbulletin.persistence.dao.RoleDao;
 import com.cgmgl.springbootbulletin.persistence.dao.UserDao;
 import com.cgmgl.springbootbulletin.persistence.entity.Role;
@@ -46,7 +51,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto createUser(UserDto userDto) {
+    public UserDto createUser(UserDto userDto) throws FileNotFoundException, IOException {
         Timestamp now = new Timestamp(new Date().getTime());
         RoleDto roleDto = getDefaultRole();
 
@@ -54,6 +59,9 @@ public class UserServiceImpl implements UserService {
             roleDto = getRoleForUserById(userDto.getRoleDto().getId()); 
 
         userDto.setRoleDto(roleDto);
+
+        // save image file
+        PhotoUploadHelper.writeImageData(userDto.getPhoto_handler(), userDto.getPhoto());
 
         User user = new User(userDto);
 
@@ -131,5 +139,11 @@ public class UserServiceImpl implements UserService {
             return false;
         
         return true;
+    }
+
+    @Override
+    public UserDto updateUser(UserDto userDto, ServletRequest request) throws FileNotFoundException, IOException {
+       
+        return null;
     }
 }
